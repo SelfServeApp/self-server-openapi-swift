@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: Self-Server REST API
   description: Self-Server's REST/HTTP API.
-  version: 0.0.0
+  version: 0.1.2
   license:
     name: Internal
     url: https://valdman.works
@@ -204,3 +204,4 @@ components:
                   required: true
                   schema:
                     type: integer
+                    format: int64
