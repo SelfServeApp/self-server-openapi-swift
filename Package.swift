@@ -19,8 +19,8 @@ let package = Package(
             name: "SelfServerRESTTypes"
         ),
         .testTarget(
-            name: "self-server-openapi-swiftTests",
-            dependencies: ["self-server-openapi-swift"]
+            name: "SelfServerRESTTypesTests",
+            dependencies: ["SelfServerRESTTypes"]
         ),
     ]
 )

@@ -1,7 +1,7 @@
 import XCTest
-@testable import self_server_openapi_swift
+@testable import SelfServerRESTTypes
 
-final class self_server_openapi_swiftTests: XCTestCase {
+final class SelfServerRESTTypesTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest
