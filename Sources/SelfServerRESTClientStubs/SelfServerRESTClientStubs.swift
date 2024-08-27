@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import OpenAPIRuntime
+
+import SelfServerRESTTypes
+
+/// Self-Server's REST/HTTP API, to be used internally by the wrapper client.
+public typealias SelfServerOpenAPIClient = Client
