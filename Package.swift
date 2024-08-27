@@ -17,11 +17,11 @@ let package = Package(
         ),
         .library(
             name: "SelfServerRESTClientStubs",
-            targets: ["SelfServerRESTClientStubs"]
+            targets: ["SelfServerRESTClientStubs", "SelfServerRESTTypes"]
         ),
         .library(
             name: "SelfServerRESTServerStubs",
-            targets: ["SelfServerRESTServerStubs"]
+            targets: ["SelfServerRESTServerStubs", "SelfServerRESTTypes"]
         ),
     ],
     dependencies: [
