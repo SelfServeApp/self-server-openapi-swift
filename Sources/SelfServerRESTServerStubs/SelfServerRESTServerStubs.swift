@@ -1,6 +1,6 @@
 //
-//  SelfServerRESTTypes.swift
-//
+//  SelfServerRESTServerStubs.swift
+//  
 //
 //  Created by Edon Valdman on 8/27/24.
 //

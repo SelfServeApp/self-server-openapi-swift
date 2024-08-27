@@ -15,6 +15,14 @@ let package = Package(
             name: "SelfServerRESTTypes",
             targets: ["SelfServerRESTTypes"]
         ),
+        .library(
+            name: "SelfServerRESTClientStubs",
+            targets: ["SelfServerRESTClientStubs"]
+        ),
+        .library(
+            name: "SelfServerRESTServerStubs",
+            targets: ["SelfServerRESTServerStubs"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.0.0"),
@@ -24,7 +32,33 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SelfServerRESTTypes"
+            name: "SelfServerRESTTypes",
+            dependencies: [
+                .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+            ],
+            plugins: [
+                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator"),
+            ]
+        ),
+        .target(
+            name: "SelfServerRESTClientStubs",
+            dependencies: [
+                .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+                "SelfServerRESTTypes",
+            ],
+            plugins: [
+                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator"),
+            ]
+        ),
+        .target(
+            name: "SelfServerRESTServerStubs",
+            dependencies: [
+                .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+                "SelfServerRESTTypes",
+            ],
+            plugins: [
+                .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator"),
+            ]
         ),
         .testTarget(
             name: "SelfServerRESTTypesTests",
