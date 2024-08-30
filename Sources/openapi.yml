@@ -69,7 +69,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/AssetTransfer'
       responses:
-        '201':
+        '200':
           description: Files were successfully uploaded.
         4XX:
           $ref: '#/components/responses/AbortError'
@@ -110,6 +110,23 @@ components:
           type: string
         latestChange:
           $ref: '#/components/schemas/LibraryChangeData'
+    AssetCompletePart:
+      description: A part indicating that all the chunks of a file have been sent, including a digest describing the full contents of the asset transfered.
+      type: object
+      required:
+        - digest
+        - digestKind
+      properties:
+        digest:
+          description: A hash digest of the completed asset.
+          type: string
+        digestKind:
+          description: The kind of digest used.
+          type: string
+          enum:
+            - md5
+            - sha256
+            - sha512
   headers:
     X-Self-Server-Error-Code:
       description: Self-Server-specific error code.
@@ -171,12 +188,7 @@ components:
                   type: string
                   contentEncoding: binary
               asset_complete:
-                description: A part indicating that all the chunks of a file have been sent.
-                type: array
-                items:
-                  type: string
-                  enum:
-                    - complete
+                $ref: '#/components/schemas/AssetCompletePart'
           encoding:
             asset_chunk:
               headers:
