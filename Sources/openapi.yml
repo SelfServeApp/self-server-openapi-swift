@@ -118,9 +118,9 @@ components:
         - digestKind
       properties:
         digest:
-          description: A hash digest of the completed asset.
+          description: A hash digest of the completed asset, with base64 encoding.
           type: string
-          format: binary
+          contentEncoding: base64
         digestKind:
           description: The kind of digest used.
           type: string
