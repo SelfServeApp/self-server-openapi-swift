@@ -120,6 +120,7 @@ components:
         digest:
           description: A hash digest of the completed asset.
           type: string
+          format: binary
         digestKind:
           description: The kind of digest used.
           type: string
@@ -191,6 +192,7 @@ components:
                 $ref: '#/components/schemas/AssetCompletePart'
           encoding:
             asset_chunk:
+              contentType: application/octet-stream
               headers:
                 X-Asset-ID:
                   description: The ID of the asset this chunk is a part of.
@@ -210,6 +212,7 @@ components:
                   schema:
                     type: string
             asset_complete:
+              contentType: application/json
               headers:
                 X-Asset-ID:
                   description: The ID of the asset this chunk is a part of.
