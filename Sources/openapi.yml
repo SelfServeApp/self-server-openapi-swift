@@ -66,6 +66,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/LibraryIDPathParam'
         - $ref: '#/components/parameters/RequestIDHeader'
+        - $ref: '#/components/parameters/AssetTransferDigestKindHeader'
       requestBody:
         $ref: '#/components/requestBodies/AssetTransfer'
       responses:
@@ -110,6 +111,12 @@ components:
           type: string
         latestChange:
           $ref: '#/components/schemas/LibraryChangeData'
+    AssetDigestKind:
+      type: string
+      enum:
+        - md5
+        - sha256
+        - sha512
     AssetCompletePart:
       description: A part indicating that all the chunks of a file have been sent, including a digest describing the full contents of the asset transfered.
       type: object
@@ -121,13 +128,6 @@ components:
           description: A hash digest of the completed asset, with base64 encoding.
           type: string
           contentEncoding: base64
-        digestKind:
-          description: The kind of digest used.
-          type: string
-          enum:
-            - md5
-            - sha256
-            - sha512
   headers:
     X-Self-Server-Error-Code:
       description: Self-Server-specific error code.
@@ -170,6 +170,14 @@ components:
       style: simple
       schema:
         $ref: '#/components/schemas/UUID'
+    AssetTransferDigestKindHeader:
+      name: X-Digest-Kind
+      in: header
+      required: true
+      description: Specifies the algorithm used to generate digests when transferring assets.
+      style: simple
+      schema:
+        $ref: '#/components/schemas/AssetDigestKind'
   requestBodies:
     AssetTransfer:
       description: Body containing library asset data being transferred between client and server.
