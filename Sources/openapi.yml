@@ -133,6 +133,21 @@ components:
       description: Self-Server-specific error code.
       schema:
         type: integer
+    XAssetID:
+      schema:
+        type: string
+        format: phphoto-id
+        pattern: ^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}\/[\w]{2}\/\d{3}$
+    ContentRange:
+      schema:
+        type: string
+        format: contentrange
+        pattern: ^(bytes) (\d+-\d+)\/\d+$
+      example: bytes 200-1000/67589
+    PartFilename:
+      required: false
+      schema:
+        type: string
   responses:
     AbortError:
       description: An error that conforms to Vapor's AbortError type.
@@ -204,31 +219,22 @@ components:
               headers:
                 X-Asset-ID:
                   description: The ID of the asset this chunk is a part of.
+                  $ref: '#/components/headers/XAssetID'
                   required: true
-                  schema:
-                    type: string
                 Content-Range:
                   description: The byte range of the chunk, and its full size.
+                  $ref: '#/components/headers/ContentRange'
                   required: true
-                  schema:
-                    type: string
-                    pattern: ^(bytes) (\d+-\d+)\/\d+$
-                  example: bytes 200-1000/67589
                 filename:
                   description: Asset file name.
-                  required: false
-                  schema:
-                    type: string
+                  $ref: '#/components/headers/PartFilename'
             asset_complete:
               contentType: application/json
               headers:
                 X-Asset-ID:
                   description: The ID of the asset this chunk is a part of.
+                  $ref: '#/components/headers/XAssetID'
                   required: true
-                  schema:
-                    type: string
                 filename:
                   description: Asset file name.
-                  required: false
-                  schema:
-                    type: string
+                  $ref: '#/components/headers/PartFilename'
