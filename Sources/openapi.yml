@@ -71,7 +71,7 @@ paths:
         $ref: '#/components/requestBodies/AssetTransfer'
       responses:
         '200':
-          description: Files were successfully uploaded.
+          $ref: '#/components/responses/AssetTransferResponse'
         4XX:
           $ref: '#/components/responses/AbortError'
         5XX:
@@ -128,6 +128,25 @@ components:
           description: A hash digest of the completed asset, with base64 encoding.
           type: string
           contentEncoding: base64
+    AssetTransferResponseBody:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: object
+          required:
+            - succeeded
+            - failed
+          properties:
+            succeeded:
+              type: array
+              items:
+                type: string
+            failed:
+              type: array
+              items:
+                type: string
   headers:
     X-Self-Server-Error-Code:
       description: Self-Server-specific error code.
@@ -168,6 +187,12 @@ components:
       headers:
         X-Self-Server-Error-Code:
           $ref: '#/components/headers/X-Self-Server-Error-Code'
+    AssetTransferResponse:
+      description: Files were successfully uploaded. Lists asset IDs by whether or it transferred successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssetTransferResponseBody'
   parameters:
     LibraryIDPathParam:
       name: libraryID
