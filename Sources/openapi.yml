@@ -38,8 +38,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/Library'
         '401':
-          description: Unauthorized request.
-          $ref: '#/components/responses/AbortError'
+          $ref: '#/components/responses/401UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/403ForbiddenResponse'
+        '500':
+          $ref: '#/components/responses/GeneralError'
   /library/{libraryID}:
     parameters:
       - $ref: '#/components/parameters/LibraryIDPathParam'
@@ -55,8 +58,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Library'
-        4XX:
-          $ref: '#/components/responses/AbortError'
+        '401':
+          $ref: '#/components/responses/401UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/403ForbiddenResponse'
+        '500':
+          $ref: '#/components/responses/GeneralError'
   /library/{libraryID}/transfer/stream-test:
     post:
       tags:
@@ -72,10 +79,12 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/AssetTransferResponse'
-        4XX:
-          $ref: '#/components/responses/AbortError'
-        5XX:
-          $ref: '#/components/responses/AbortError'
+        '401':
+          $ref: '#/components/responses/401UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/403ForbiddenResponse'
+        '500':
+          $ref: '#/components/responses/GeneralError'
 components:
   securitySchemes:
     active_session_token:
@@ -111,6 +120,19 @@ components:
           type: string
         latestChange:
           $ref: '#/components/schemas/LibraryChangeData'
+    AbortError:
+      type: object
+      description: A schema that conforms to Vapor's AbortError type.
+      required:
+        - error
+      properties:
+        error:
+          type: boolean
+          enum:
+            - true
+        reason:
+          type: string
+          description: Describes the reason for the error.
     AssetDigestKind:
       type: string
       enum:
@@ -158,6 +180,14 @@ components:
               items:
                 type: string
   headers:
+    WWWAuthenticate:
+      description: Describes the expected authentication.
+      required: true
+      schema:
+        type: string
+        examples:
+          - Basic realm="server"
+          - Bearer iss="self-server:session.token"
     XSelfServerErrorCode:
       description: Self-Server-specific error code.
       schema:
@@ -171,22 +201,23 @@ components:
       schema:
         type: string
   responses:
-    AbortError:
-      description: An error that conforms to Vapor's AbortError type.
+    401UnauthorizedResponse:
+      description: Request is missing authentication.
+      headers:
+        WWW-Authenticate:
+          $ref: '#/components/headers/WWWAuthenticate'
+    403ForbiddenResponse:
+      description: Request is not authorized appropriately to access this content.
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - error
-            properties:
-              error:
-                type: boolean
-                enum:
-                  - true
-              reason:
-                type: string
-                description: Describes the reason for the error.
+            $ref: '#/components/schemas/AbortError'
+    GeneralError:
+      description: A general response for general errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AbortError'
       headers:
         X-Self-Server-Error-Code:
           $ref: '#/components/headers/XSelfServerErrorCode'
