@@ -102,10 +102,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Library'
+        '400':
+          description: Path parameter not a valid UUID.
+          $ref: '#/components/responses/GeneralError'
         '401':
           $ref: '#/components/responses/401UnauthorizedResponse'
         '403':
           $ref: '#/components/responses/403ForbiddenResponse'
+        '404':
+          description: Library with provided ID could not be found.
+          $ref: '#/components/responses/GeneralError'
         '500':
           $ref: '#/components/responses/GeneralError'
   /library/{libraryID}/transfer/stream-test:
