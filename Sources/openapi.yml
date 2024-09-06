@@ -123,6 +123,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/AssetTransferResponse'
+        '400':
+          description: Request does not contain a valid multipart body.
+          $ref: '#/components/responses/GeneralError'
         '401':
           $ref: '#/components/responses/401UnauthorizedResponse'
         '403':
