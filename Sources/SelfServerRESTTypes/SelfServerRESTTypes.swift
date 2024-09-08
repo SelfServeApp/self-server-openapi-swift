@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+@_exported import SelfServerExtensions
+
+public enum SelfServerDTOs {}

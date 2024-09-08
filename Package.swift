@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "self-server-openapi-swift",
     platforms: [
-        .macOS(.v10_15),
-        .iOS(.v13),
+        .macOS(.v11),
+        .iOS(.v14),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -27,6 +27,9 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-openapi-runtime", from: "1.0.0"),
+        
+        .package(url: "https://github.com/edonv/swift-http-ranges.git", from: "0.1.0"),
+        .package(url: "https://github.com/SelfServeApp/self-server-extensions.git", from: "0.2.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -35,6 +38,8 @@ let package = Package(
             name: "SelfServerRESTTypes",
             dependencies: [
                 .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
+                .product(name: "HTTPRanges", package: "swift-http-ranges"),
+                .product(name: "SelfServerExtensions", package: "self-server-extensions"),
             ],
             plugins: [
                 .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator"),
