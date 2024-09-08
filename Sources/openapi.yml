@@ -280,6 +280,7 @@ components:
           - Bearer iss="self-server:session.token"
     XSelfServerErrorCode:
       description: Self-Server-specific error code.
+      required: true
       schema:
         type: integer
     XAssetID:
