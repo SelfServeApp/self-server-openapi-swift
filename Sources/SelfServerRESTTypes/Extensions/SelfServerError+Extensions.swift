@@ -52,4 +52,16 @@ extension UnknownCodeError {
             )
         }
     }
+    
+    /// A convenience initializer from a `403`/`Forbidden` response, used when the content of the `X-Self-Server-Error-Code` header is not a recognized value.
+    public init(status: HTTPResponseStatus, response: Components.Responses._403ForbiddenResponse) {
+        switch response.body {
+        case .json(let body):
+            self.init(
+                statusCode: status,
+                errorCode: response.headers.X_hyphen_Self_hyphen_Server_hyphen_Error_hyphen_Code,
+                reason: body.reason
+            )
+        }
+    }
 }
