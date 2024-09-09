@@ -49,6 +49,13 @@ paths:
         - library
       summary: List all libraries in the database.
       operationId: listLibraries
+      parameters:
+        - name: deviceId
+          in: query
+          description: Filters returned libraries by the provided deviceId.
+          required: false
+          schema:
+            $ref: '#/components/schemas/UUID'
       responses:
         '200':
           description: Successful operation.
