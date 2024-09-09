@@ -14,5 +14,10 @@ extension SelfServerDTOs {
     public struct NewLibrary: Sendable {
         public let name: String
         public let deviceID: UUID
+        
+        public init(name: String, deviceID: UUID) {
+            self.name = name
+            self.deviceID = deviceID
+        }
     }
 }
