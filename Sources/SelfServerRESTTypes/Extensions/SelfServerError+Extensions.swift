@@ -30,7 +30,7 @@ extension SelfServerError {
 
 extension UnauthorizedRequestError {
     /// A convenience initializer from a `401`/`Unauthorized` response, which contains a `WWW-Authenticate` header.
-    public init?(operationID: String, response: Components.Responses._401UnauthorizedResponse) {
+    public init(operationID: String, response: Components.Responses._401UnauthorizedResponse) {
         self.init(
             operationID: operationID,
             wwwAuthenticate: response.headers.WWW_hyphen_Authenticate
