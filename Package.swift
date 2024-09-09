@@ -40,6 +40,7 @@ let package = Package(
                 .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
                 .product(name: "HTTPRanges", package: "swift-http-ranges"),
                 .product(name: "SelfServerExtensions", package: "self-server-extensions"),
+                .product(name: "SelfServerHelperTypes", package: "self-server-extensions"),
             ],
             plugins: [
                 .plugin(name: "OpenAPIGenerator", package: "swift-openapi-generator"),
