@@ -1,6 +1,6 @@
 //
 //  SelfServerError+Extensions.swift
-//  
+//
 //
 //  Created by Edon Valdman on 9/9/24.
 //
