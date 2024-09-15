@@ -28,7 +28,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-openapi-runtime", from: "1.0.0"),
         
-        .package(url: "https://github.com/edonv/swift-http-ranges.git", from: "0.1.0"),
+        .package(url: "https://github.com/edonv/swift-http-field-types.git", from: "0.1.0"),
         .package(url: "https://github.com/SelfServeApp/self-server-extensions.git", from: "0.2.0"),
     ],
     targets: [
@@ -38,7 +38,7 @@ let package = Package(
             name: "SelfServerRESTTypes",
             dependencies: [
                 .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
-                .product(name: "HTTPRanges", package: "swift-http-ranges"),
+                .product(name: "HTTPFieldTypes", package: "swift-http-field-types"),
                 .product(name: "SelfServerExtensions", package: "self-server-extensions"),
                 .product(name: "SelfServerHelperTypes", package: "self-server-extensions"),
             ],
