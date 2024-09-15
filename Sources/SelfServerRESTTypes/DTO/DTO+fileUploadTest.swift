@@ -11,7 +11,7 @@ import CryptoKit
 
 import SelfServerExtensions
 
-import HTTPRanges
+import HTTPFieldTypes
 
 extension SelfServerDTOs {
     /// Client-side DTO for `fileUploadTest` operation.
