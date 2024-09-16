@@ -13,14 +13,12 @@ extension SelfServerError {
     ///
     /// It might fail if it's not a valid error code.
     public init?(response: Components.Responses.GeneralError) {
-        self.init(errorCode: response.headers.X_hyphen_Self_hyphen_Server_hyphen_Error_hyphen_Code)
-    }
-    
-    /// A convenience initializer from a `GeneralError` response, which contains an `X-Self-Server-Error-Code` header.
-    ///
-    /// It might fail if it's not a valid error code.
-    public init?(errorCode header: Components.Headers.XSelfServerErrorCode) {
-        self.init(rawValue: UInt(header))
+        guard let code = Code(rawValue: UInt(response.headers.X_hyphen_Self_hyphen_Server_hyphen_Error_hyphen_Code)) else { return nil }
+        
+        switch response.body {
+        case .json(let body):
+            self.init(code: code, reason: body.reason)
+        }
     }
 }
 
