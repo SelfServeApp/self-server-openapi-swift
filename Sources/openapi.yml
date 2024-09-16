@@ -323,8 +323,14 @@ components:
           schema:
             type: object
             required:
+              - conflict
               - matchingLibrary
             properties:
+              conflict:
+                type: string
+                enum:
+                  - libraryName
+                  - deviceID
               matchingLibrary:
                 $ref: '#/components/schemas/Library'
       headers:
