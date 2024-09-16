@@ -20,5 +20,24 @@ extension SelfServerError {
             self.init(code: code, reason: body.reason)
         }
     }
+    
+    public init(conflict response: Components.Responses._409ConflictingLibraryResponse) {
+        switch response.body {
+        case .json(let body):
+            switch body.conflict {
+            case .libraryName:
+                self = .newLibraryNameAlreadyExists(
+                    name: body.matchingLibrary.name,
+                    id: UUID(uuidString: body.matchingLibrary.id)!
+                )
+            case .deviceID:
+                self = .newLibraryDeviceIDAlreadyExists(
+                    deviceID: UUID(uuidString: body.matchingLibrary.deviceId)!,
+                    existingLibraryName: body.matchingLibrary.name,
+                    existingLibraryID: UUID(uuidString: body.matchingLibrary.id)!
+                )
+            }
+        }
+    }
 }
 
