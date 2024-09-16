@@ -27,13 +27,18 @@ extension SelfServerDTOs {
             public let body: Body
             public let errorCode: SelfServerError
             
-            internal init(response: Components.Responses._409ConflictingLibraryResponse) {
-                self.body = switch response.body {
-                case .json(let body): body
-                }
+            internal init(body: Body, errorCode: SelfServerError) {
+                self.body = body
+                self.errorCode = errorCode
+            }
+            
+            internal init?(response: Components.Responses._409ConflictingLibraryResponse) {
+                guard let errorCode = SelfServerError(errorCode: response.headers.X_hyphen_Self_hyphen_Server_hyphen_Error_hyphen_Code) else { return nil }
                 
-                self.errorCode = .init(errorCode: response.headers.X_hyphen_Self_hyphen_Server_hyphen_Error_hyphen_Code)
-                    ?? .newLibraryDeviceIDAlreadyExists
+                switch response.body {
+                case .json(let body):
+                    self.init(body: body, errorCode: errorCode)
+                }
             }
             
             public var errorDescription: String? { errorCode.errorDescription }
