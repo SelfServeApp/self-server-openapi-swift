@@ -12,7 +12,7 @@ extension SelfServerDTOs {
     /// Client-side DTO for `newLibrary` operation.
     ///
     /// Used by `SelfServerRESTClient` as operation input.
-    public struct NewLibrary: Sendable {
+    public struct NewLibrary: Hashable, Sendable, Codable {
         public let name: String
         public let deviceID: UUID
         
