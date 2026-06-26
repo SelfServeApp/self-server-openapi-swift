@@ -29,7 +29,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-openapi-runtime", from: "1.0.0"),
         
         .package(url: "https://github.com/edonv/swift-http-field-types.git", from: "0.1.0"),
-        .package(url: "https://github.com/SelfServeApp/self-server-extensions.git", from: "0.2.0"),
+        .package(url: "https://github.com/SelfServeApp/self-server-extensions.git", from: "0.3.27"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
